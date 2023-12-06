@@ -4852,6 +4852,37 @@ print(binary_search(my_list, 3)) # => 1
 print(binary_search(my_list, -1)) # => None
 ```
 
+## Сортировка вставками
+
+Последовательно перебираются все элементы оригинального списка и вставляются в результирующий отсортированный список на правильную позицию.  
+Для того, чтобы произвести эту вставку, необходимо перебрать все элементы отсортированного списка и сравнить их с элементом оригинального списка.
+
+```python
+def sort_insert(original_list: list) -> list:
+    if len(original_list) < 2:
+        return original_list
+
+    result_list = [original_list[0]]
+
+    for original_item in original_list[1:]:
+        location = 0
+        while location < len(result_list):
+            if result_list[location] >= original_item:
+                result_list.insert(location, original_item)
+                break
+            location += 1
+        else:
+            result_list.append(original_item)
+
+    return result_list
+
+
+assert sort_insert([3, 5, 4, 2, 1]) == [1, 2, 3, 4, 5]
+assert sort_insert([1, 2, 3]) == [1, 2, 3]
+assert sort_insert([3, 3, 5, 4, 5, 4, 1, 2, 2, 1]) == [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+assert sort_insert([]) == []
+```
+
 ## Рекурсивные алгоритмы
 
 Должны иметь базовый и рекурсивный случай. Если рекурсивный алгоритм не будет иметь базового случая, он будет выполняться вечно, так как не будет условия при котором нужно вернуть управление.
